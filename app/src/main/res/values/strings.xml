@@ -6,4 +6,5 @@
     <string name="surname">Surname</string>
     <string name="age">Age</string>
     <string name="enter">Enter</string>
+    <string name="close">Close</string>
 </resources>

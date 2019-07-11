@@ -3,7 +3,6 @@
 
     <dimen name="border_margin">16dp</dimen>
     <dimen name="vertical_margin">8dp</dimen>
-
-
+    <dimen name="border_margin_info">32dp</dimen>
 
 </resources>
