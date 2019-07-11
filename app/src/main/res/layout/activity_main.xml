@@ -75,6 +75,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/enter_button"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/input_layout"
             android:layout_marginTop="@dimen/vertical_margin"
