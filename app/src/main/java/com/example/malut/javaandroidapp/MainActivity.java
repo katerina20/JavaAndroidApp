@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText surnameEditText;
     private EditText ageEditText;
     private Button enterButton;
+    private TextView errorInputText;
 
     private Person person;
 
@@ -32,18 +33,39 @@ public class MainActivity extends AppCompatActivity {
         surnameEditText = findViewById(R.id.input_surname);
         ageEditText = findViewById(R.id.input_age);
         enterButton = findViewById(R.id.enter_button);
+        errorInputText = findViewById(R.id.error_input_text);
+
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ifInputCorrect()){
+                    person = new Person(nameEditText.getText().toString(),
+                            surnameEditText.getText().toString(),
+                            Integer.parseInt(ageEditText.getText().toString()));
 
-                person = new Person(nameEditText.getText().toString(),
-                        surnameEditText.getText().toString(),
-                        Integer.parseInt(ageEditText.getText().toString()));
-
-                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                    intent.putExtra("person_info", person);
+                    startActivity(intent);
+                } else
+                    errorInputText.setVisibility(View.VISIBLE);
             }
         });
 
+    }
+
+    private boolean ifInputCorrect(){
+        if (nameEditText.getText().toString().isEmpty())
+            return false;
+        if (surnameEditText.getText().toString().isEmpty())
+            return false;
+        return ifAgeCorrect(ageEditText.getText().toString());
+    }
+
+    private boolean ifAgeCorrect(String str){
+        if (str.isEmpty())
+            return false;
+        if (Integer.parseInt(str) < 0 || Integer.parseInt(str) > 150)
+            return false;
+        return !(str.matches(".*\\D.*"));
     }
 }

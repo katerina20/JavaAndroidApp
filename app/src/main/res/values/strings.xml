@@ -7,4 +7,5 @@
     <string name="age">Age</string>
     <string name="enter">Enter</string>
     <string name="close">Close</string>
+    <string name="error_input">Check your input</string>
 </resources>

@@ -65,10 +65,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/input_age"
+                    android:inputType="number"
                     android:textColor="@color/colorPrimaryDark"
                     android:hint="@string/age"/>
 
             </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/error_input_text"
+                android:text="@string/error_input"
+                android:visibility="invisible"
+                android:textColor="@color/colorAccent"/>
 
         </LinearLayout>
 

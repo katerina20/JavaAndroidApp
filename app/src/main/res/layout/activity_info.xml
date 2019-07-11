@@ -17,7 +17,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/enter_button"
+                android:id="@+id/close_button"
                 android:layout_alignParentEnd="true"
                 android:background="@color/transparent"
                 android:textColor="@color/colorPrimaryDark"
@@ -67,8 +67,7 @@
                 android:id="@+id/info_name"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
-                android:gravity="top"
-                android:text="Katerina"/>
+                android:gravity="top"/>
         </LinearLayout>
 
         <LinearLayout
@@ -91,8 +90,7 @@
                 android:id="@+id/info_surname"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
-                android:gravity="top"
-                android:text="Oblakevich"/>
+                android:gravity="top"/>
         </LinearLayout>
 
         <LinearLayout
@@ -115,8 +113,7 @@
                 android:id="@+id/info_age"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
-                android:gravity="top"
-                android:text="20 years"/>
+                android:gravity="top"/>
         </LinearLayout>
 
     </LinearLayout>

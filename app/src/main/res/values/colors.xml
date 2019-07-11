@@ -6,4 +6,5 @@
     <color name="colorAccentLight">#aba6a8</color>
     <color name="colorLignt">#f4f6f5</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="colorErrorMessage">#C54A4B</color>
 </resources>

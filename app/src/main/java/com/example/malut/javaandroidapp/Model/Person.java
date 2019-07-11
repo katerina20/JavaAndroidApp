@@ -1,6 +1,9 @@
 package com.example.malut.javaandroidapp.Model;
 
-public class Person {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Person implements Parcelable {
 
     private String name;
     private String surname;
@@ -12,6 +15,24 @@ public class Person {
         this.age = age;
     }
 
+    protected Person(Parcel in) {
+        name = in.readString();
+        surname = in.readString();
+        age = in.readInt();
+    }
+
+    public static final Creator<Person> CREATOR = new Creator<Person>() {
+        @Override
+        public Person createFromParcel(Parcel in) {
+            return new Person(in);
+        }
+
+        @Override
+        public Person[] newArray(int size) {
+            return new Person[size];
+        }
+    };
+
     public String getName() {
         return name;
     }
@@ -22,5 +43,17 @@ public class Person {
 
     public int getAge() {
         return age;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(surname);
+        dest.writeInt(age);
     }
 }
