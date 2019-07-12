@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,12 +46,20 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(MainActivity.this, InfoActivity.class);
                     intent.putExtra("person_info", person);
+
                     startActivity(intent);
                 } else
                     errorInputText.setVisibility(View.VISIBLE);
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cleanFields();
+        nameEditText.requestFocus();
     }
 
     private boolean ifInputCorrect(){
@@ -67,5 +76,15 @@ public class MainActivity extends AppCompatActivity {
         if (Integer.parseInt(str) < 0 || Integer.parseInt(str) > 150)
             return false;
         return !(str.matches(".*\\D.*"));
+    }
+
+    private void cleanFields(){
+        cleanOneField(nameEditText);
+        cleanOneField(surnameEditText);
+        cleanOneField(ageEditText);
+    }
+
+    private void cleanOneField(EditText v){
+        v.setText("");
     }
 }

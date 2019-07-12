@@ -37,7 +37,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/input_name"
+                    android:inputType="textPersonName"
                     android:textColor="@color/colorPrimaryDark"
+                    android:maxLength="20"
                     android:hint="@string/name"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -52,6 +54,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/input_surname"
                     android:textColor="@color/colorPrimaryDark"
+                    android:inputType="textPersonName"
+                    android:maxLength="40"
                     android:hint="@string/surname"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -67,6 +71,7 @@
                     android:id="@+id/input_age"
                     android:inputType="number"
                     android:textColor="@color/colorPrimaryDark"
+                    android:maxLength="3"
                     android:hint="@string/age"/>
 
             </android.support.design.widget.TextInputLayout>
