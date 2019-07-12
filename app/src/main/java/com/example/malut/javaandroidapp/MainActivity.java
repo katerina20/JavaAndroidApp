@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
         cleanFields();
         nameEditText.requestFocus();
     }
