@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -11,80 +12,37 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.malut.javaandroidapp.Model.Person;
+import com.example.malut.javaandroidapp.Services.OnPersonInfoPass;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements OnPersonInfoPass{
 
-    private EditText nameEditText;
-    private EditText surnameEditText;
-    private EditText ageEditText;
-    private Button enterButton;
-    private TextView errorInputText;
+
+    private InputFragment inputFragment;
 
     private Person person;
+    private OnPersonInfoPass onPersonInfoPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nameEditText = findViewById(R.id.input_name);
-        surnameEditText = findViewById(R.id.input_surname);
-        ageEditText = findViewById(R.id.input_age);
-        enterButton = findViewById(R.id.enter_button);
-        errorInputText = findViewById(R.id.error_input_text);
+        inputFragment = (InputFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_input);
 
-        enterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ifInputCorrect()){
-                    person = new Person(nameEditText.getText().toString(),
-                            surnameEditText.getText().toString(),
-                            Integer.parseInt(ageEditText.getText().toString()));
+    }
 
-                    Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+
+
+    @Override
+    public void onPersonInfoPass(Person person) {
+        this.person = person;
+        Intent intent = new Intent(MainActivity.this, InfoActivity.class);
                     intent.putExtra("person_info", person);
 
                     startActivity(intent);
-                } else
-                    errorInputText.setVisibility(View.VISIBLE);
-            }
-        });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        cleanFields();
-        nameEditText.requestFocus();
-    }
-
-    private boolean ifInputCorrect(){
-        if (nameEditText.getText().toString().isEmpty())
-            return false;
-        if (surnameEditText.getText().toString().isEmpty())
-            return false;
-        return ifAgeCorrect(ageEditText.getText().toString());
-    }
-
-    private boolean ifAgeCorrect(String str){
-        if (str.isEmpty())
-            return false;
-        if (Integer.parseInt(str) < 0 || Integer.parseInt(str) > 150)
-            return false;
-        return !(str.matches(".*\\D.*"));
-    }
-
-    private void cleanFields(){
-        cleanOneField(nameEditText);
-        cleanOneField(surnameEditText);
-        cleanOneField(ageEditText);
-    }
-
-    private void cleanOneField(EditText v){
-        v.setText("");
     }
 }
