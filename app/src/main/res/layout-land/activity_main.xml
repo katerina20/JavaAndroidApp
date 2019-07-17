@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    tools:context=".MainActivity">
+
+    <fragment
+        android:id="@+id/fragment_input"
+        android:name="com.example.malut.javaandroidapp.Fragments.InputFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.6"/>
+
+    <fragment
+        android:id="@+id/fragment_info"
+        android:name="com.example.malut.javaandroidapp.Fragments.InfoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"/>
+
+</LinearLayout>

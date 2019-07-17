@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.malut.javaandroidapp.InfoActivity;
 import com.example.malut.javaandroidapp.Model.Person;
 import com.example.malut.javaandroidapp.R;
 
@@ -36,6 +37,13 @@ public class InfoFragment extends Fragment {
         infoSurname = v.findViewById(R.id.info_surname);
         infoAge = v.findViewById(R.id.info_age);
         closeButton = v.findViewById(R.id.close_button);
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
 
         return v;
     }

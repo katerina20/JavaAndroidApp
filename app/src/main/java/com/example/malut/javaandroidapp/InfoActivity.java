@@ -16,15 +16,26 @@ public class InfoActivity extends AppCompatActivity {
 
     private Person person;
     private Fragment infoFragment;
+    private boolean inLandscapeMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        inLandscapeMode = findViewById(R.id.fragment_input) != null;
+
+        if(inLandscapeMode){
+
+
+        } else{
+            infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_info);
+        }
 
         person = getIntent().getParcelableExtra("person_info");
-        infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_info);
+
         ((InfoFragment) infoFragment).displayInfo(person);
+
+
     }
 }
