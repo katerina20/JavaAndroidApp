@@ -1,4 +1,4 @@
-package com.example.malut.javaandroidapp;
+package com.example.malut.javaandroidapp.Fragments;
 
 
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.malut.javaandroidapp.Model.Person;
+import com.example.malut.javaandroidapp.R;
 import com.example.malut.javaandroidapp.Services.OnPersonInfoPass;
 
 
@@ -87,10 +88,6 @@ public class InputFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
         }
-    }
-
-    public void passData() {
-//        onPersonInfoPass.onPersonInfoPass(person);
     }
 
     @Override

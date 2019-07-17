@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_input"
-        android:name="com.example.malut.javaandroidapp.InputFragment"
+        android:name="com.example.malut.javaandroidapp.Fragments.InputFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

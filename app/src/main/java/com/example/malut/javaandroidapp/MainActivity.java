@@ -1,36 +1,30 @@
 package com.example.malut.javaandroidapp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
+import com.example.malut.javaandroidapp.Fragments.InfoFragment;
+import com.example.malut.javaandroidapp.Fragments.InputFragment;
 import com.example.malut.javaandroidapp.Model.Person;
 import com.example.malut.javaandroidapp.Services.OnPersonInfoPass;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity  implements OnPersonInfoPass{
 
 
     private InputFragment inputFragment;
+    private InfoFragment infoFragment;
 
-    private Person person;
-    private OnPersonInfoPass onPersonInfoPass;
+//    private boolean inLandscapeMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        inLandscapeMode = findViewById(R.id.fragment_two) != null;
         inputFragment = (InputFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_input);
+        infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_info);
 
     }
 
@@ -38,11 +32,10 @@ public class MainActivity extends AppCompatActivity  implements OnPersonInfoPass
 
     @Override
     public void onPersonInfoPass(Person person) {
-        this.person = person;
+//        infoFragment.displayInfo(person);
         Intent intent = new Intent(MainActivity.this, InfoActivity.class);
-                    intent.putExtra("person_info", person);
-
-                    startActivity(intent);
+        intent.putExtra("person_info", person);
+        startActivity(intent);
 
     }
 }
