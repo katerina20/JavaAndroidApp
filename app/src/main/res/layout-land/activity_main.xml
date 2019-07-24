@@ -8,9 +8,10 @@
     tools:context=".MainActivity">
 
     <fragment
-        android:id="@+id/fragment_input"
-        android:name="com.example.malut.javaandroidapp.Fragments.InputFragment"
+        android:id="@+id/fragment_list"
+        android:name="com.example.malut.javaandroidapp.Fragments.ListFragment"
         android:layout_width="match_parent"
+        tools:layout="@layout/fragment_list"
         android:layout_height="match_parent"
         android:layout_weight="0.6"/>
 
@@ -19,6 +20,7 @@
         android:name="com.example.malut.javaandroidapp.Fragments.InfoFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:layout="@layout/fragment_info"
         android:layout_weight="0.4"/>
 
 </LinearLayout>

@@ -7,8 +7,9 @@
     tools:context=".MainActivity">
 
     <fragment
-        android:id="@+id/fragment_input"
-        android:name="com.example.malut.javaandroidapp.Fragments.InputFragment"
+        android:id="@+id/fragment_list"
+        android:name="com.example.malut.javaandroidapp.Fragments.ListFragment"
+        tools:layout="@layout/fragment_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

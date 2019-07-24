@@ -23,7 +23,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        inLandscapeMode = findViewById(R.id.fragment_input) != null;
+        inLandscapeMode = findViewById(R.id.fragment_list) != null;
 
         if(inLandscapeMode){
 

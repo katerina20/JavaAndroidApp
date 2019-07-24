@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.malut.javaandroidapp.Fragments.InfoFragment;
 import com.example.malut.javaandroidapp.Fragments.InputFragment;
+import com.example.malut.javaandroidapp.Fragments.ListFragment;
 import com.example.malut.javaandroidapp.Model.Person;
 import com.example.malut.javaandroidapp.Services.OnPersonInfoPass;
 
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity  implements OnPersonInfoPass{
 
 
-    private InputFragment inputFragment;
+    private ListFragment listFragment;
     private InfoFragment infoFragment;
 
     private boolean inLandscapeMode;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity  implements OnPersonInfoPass
         setContentView(R.layout.activity_main);
 
         inLandscapeMode = findViewById(R.id.fragment_info) != null;
-        inputFragment = (InputFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_input);
+        listFragment = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_list);
         if (inLandscapeMode){
             infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_info);
             Objects.requireNonNull(getSupportActionBar()).hide();
