@@ -8,17 +8,20 @@ public class Person implements Parcelable {
     private String name;
     private String surname;
     private int age;
+    private int image;
 
-    public Person(String name, String surname, int age) {
+    public Person(String name, String surname, int age, int image) {
         this.name = name;
         this.surname = surname;
         this.age = age;
+        this.image = image;
     }
 
     protected Person(Parcel in) {
         name = in.readString();
         surname = in.readString();
         age = in.readInt();
+        image = in.readInt();
     }
 
     public static final Creator<Person> CREATOR = new Creator<Person>() {
@@ -45,6 +48,10 @@ public class Person implements Parcelable {
         return age;
     }
 
+    public int getImage() {
+        return image;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -55,5 +62,6 @@ public class Person implements Parcelable {
         dest.writeString(name);
         dest.writeString(surname);
         dest.writeInt(age);
+        dest.writeInt(image);
     }
 }
