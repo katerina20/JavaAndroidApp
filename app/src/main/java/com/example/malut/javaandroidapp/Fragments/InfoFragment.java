@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.malut.javaandroidapp.InfoActivity;
@@ -21,6 +22,7 @@ public class InfoFragment extends Fragment {
     private TextView infoName;
     private TextView infoSurname;
     private TextView infoAge;
+    private ImageView imageProfile;
     private Button closeButton;
 
     public InfoFragment() {
@@ -37,6 +39,7 @@ public class InfoFragment extends Fragment {
         infoSurname = v.findViewById(R.id.info_surname);
         infoAge = v.findViewById(R.id.info_age);
         closeButton = v.findViewById(R.id.close_button);
+        imageProfile = v.findViewById(R.id.image_profile);
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +55,8 @@ public class InfoFragment extends Fragment {
         infoName.setText(person.getName());
         infoSurname.setText(person.getSurname());
         infoAge.setText(String.valueOf(person.getAge()));
+        imageProfile.setImageResource(person.getImage());
+
     }
 
 }
