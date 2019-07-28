@@ -1,4 +1,4 @@
-package com.example.malut.javaandroidapp.Model;
+package com.example.malut.javaandroidapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

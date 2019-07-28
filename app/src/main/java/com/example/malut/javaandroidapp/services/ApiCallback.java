@@ -1,6 +1,6 @@
-package com.example.malut.javaandroidapp.Services;
+package com.example.malut.javaandroidapp.services;
 
-import com.example.malut.javaandroidapp.Model.ErrorResponse;
+import com.example.malut.javaandroidapp.model.ErrorResponse;
 
 
 import java.lang.annotation.Annotation;

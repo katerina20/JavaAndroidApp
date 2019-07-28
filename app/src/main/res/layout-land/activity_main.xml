@@ -9,15 +9,15 @@
 
     <fragment
         android:id="@+id/fragment_list"
-        android:name="com.example.malut.javaandroidapp.Fragments.ListFragment"
+        android:name="com.example.malut.javaandroidapp.fragments.ListAllFragment"
         android:layout_width="match_parent"
-        tools:layout="@layout/fragment_list"
+        tools:layout="@layout/fragment_list_all"
         android:layout_height="match_parent"
         android:layout_weight="0.6"/>
 
     <fragment
         android:id="@+id/fragment_info"
-        android:name="com.example.malut.javaandroidapp.Fragments.InfoFragment"
+        android:name="com.example.malut.javaandroidapp.fragments.InfoFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_info"

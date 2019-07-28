@@ -1,4 +1,4 @@
-package com.example.malut.javaandroidapp.Model;
+package com.example.malut.javaandroidapp.adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.malut.javaandroidapp.Listeners.OnTrackClickListener;
+import com.example.malut.javaandroidapp.listeners.OnTrackClickListener;
 import com.example.malut.javaandroidapp.R;
+import com.example.malut.javaandroidapp.model.Track;
 
 import java.util.ArrayList;
 

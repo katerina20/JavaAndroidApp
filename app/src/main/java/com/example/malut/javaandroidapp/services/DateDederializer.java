@@ -1,4 +1,4 @@
-package com.example.malut.javaandroidapp.Services;
+package com.example.malut.javaandroidapp.services;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

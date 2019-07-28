@@ -1,4 +1,4 @@
-package com.example.malut.javaandroidapp.Listeners;
+package com.example.malut.javaandroidapp.listeners;
 
 import android.view.View;
 

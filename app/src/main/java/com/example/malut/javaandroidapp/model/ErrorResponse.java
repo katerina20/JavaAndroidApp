@@ -1,4 +1,4 @@
-package com.example.malut.javaandroidapp.Model;
+package com.example.malut.javaandroidapp.model;
 
 public class ErrorResponse {
 

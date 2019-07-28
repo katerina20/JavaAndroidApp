@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.malut.javaandroidapp.Fragments.InfoFragment;
-import com.example.malut.javaandroidapp.Model.Track;
+import com.example.malut.javaandroidapp.fragments.InfoFragment;
+import com.example.malut.javaandroidapp.model.Track;
 
 import java.util.Objects;
 

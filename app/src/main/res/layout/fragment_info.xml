@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.InfoFragment">
+    tools:context=".fragments.InfoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,49 +19,47 @@
                 android:id="@+id/background_view"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:background="@drawable/grad">
-            </ImageView>
+                android:background="@drawable/grad"
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/track_image"
-                android:layout_marginTop="50dp"
-                android:layout_height="100dp"
                 android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_person_black_24dp"
-                 />
+                android:layout_marginTop="50dp"
+                android:src="@drawable/ic_person_black_24dp" />
 
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/info_track_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/vertical_margin"
-            android:id="@+id/info_track_name"
-            android:textAlignment="center"
+            android:gravity="top"
             android:paddingStart="@dimen/border_margin_info"
             android:paddingEnd="@dimen/border_margin_info"
             android:text="@string/no_info"
-            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/track_name_info_text_size"
-            android:gravity="top"/>
+            android:textSize="@dimen/track_name_info_text_size" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/info_layout"
                 android:layout_marginTop="@dimen/vertical_margin"
+                android:orientation="vertical"
                 android:paddingStart="@dimen/border_margin_info"
                 android:paddingEnd="@dimen/border_margin_info"
-                android:weightSum="4"
                 android:paddingBottom="@dimen/border_margin"
-                android:orientation="vertical">
+                android:weightSum="4">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,29 +71,29 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_person_black_24dp"/>
+                        android:src="@drawable/ic_person_black_24dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/vertical_margin"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/vertical_margin">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/artist_name"
-                            android:textSize="@dimen/text_size_info_description"
-                            android:textColor="@color/colorAccentLight"/>
+                            android:textColor="@color/colorAccentLight"
+                            android:textSize="@dimen/text_size_info_description" />
 
                         <TextView
+                            android:id="@+id/artist_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/artist_name"
+                            android:gravity="top"
                             android:text="@string/no_info"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/text_size_info"
-                            android:gravity="top"/>
+                            android:textSize="@dimen/text_size_info" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -110,29 +108,29 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_album_black_24dp"/>
+                        android:src="@drawable/ic_album_black_24dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/vertical_margin"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/vertical_margin">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/album_name"
-                            android:textSize="@dimen/text_size_info_description"
-                            android:textColor="@color/colorAccentLight"/>
+                            android:textColor="@color/colorAccentLight"
+                            android:textSize="@dimen/text_size_info_description" />
 
                         <TextView
+                            android:id="@+id/album_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/album_name"
+                            android:gravity="top"
                             android:text="@string/no_info"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/text_size_info"
-                            android:gravity="top"/>
+                            android:textSize="@dimen/text_size_info" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -147,29 +145,29 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_timer_black_24dp"/>
+                        android:src="@drawable/ic_timer_black_24dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/vertical_margin"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/vertical_margin">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/duration"
-                            android:textSize="@dimen/text_size_info_description"
-                            android:textColor="@color/colorAccentLight"/>
+                            android:textColor="@color/colorAccentLight"
+                            android:textSize="@dimen/text_size_info_description" />
 
                         <TextView
+                            android:id="@+id/duration"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/duration"
+                            android:gravity="top"
                             android:text="@string/no_info"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/text_size_info"
-                            android:gravity="top"/>
+                            android:textSize="@dimen/text_size_info" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -184,29 +182,29 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_insert_invitation_black_24dp"/>
+                        android:src="@drawable/ic_insert_invitation_black_24dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/vertical_margin"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/vertical_margin">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/release_date"
-                            android:textSize="@dimen/text_size_info_description"
-                            android:textColor="@color/colorAccentLight"/>
+                            android:textColor="@color/colorAccentLight"
+                            android:textSize="@dimen/text_size_info_description" />
 
                         <TextView
+                            android:id="@+id/release_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/release_date"
+                            android:gravity="top"
                             android:text="@string/no_info"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/text_size_info"
-                            android:gravity="top"/>
+                            android:textSize="@dimen/text_size_info" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -221,29 +219,29 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_language_black_24dp"/>
+                        android:src="@drawable/ic_language_black_24dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/vertical_margin"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/vertical_margin">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/country"
-                            android:textSize="@dimen/text_size_info_description"
-                            android:textColor="@color/colorAccentLight"/>
+                            android:textColor="@color/colorAccentLight"
+                            android:textSize="@dimen/text_size_info_description" />
 
                         <TextView
+                            android:id="@+id/country"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/country"
+                            android:gravity="top"
                             android:text="@string/no_info"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/text_size_info"
-                            android:gravity="top"/>
+                            android:textSize="@dimen/text_size_info" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -258,40 +256,36 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_queue_music_black_24dp"/>
+                        android:src="@drawable/ic_queue_music_black_24dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/vertical_margin"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/vertical_margin">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/genre"
-                            android:textSize="@dimen/text_size_info_description"
-                            android:textColor="@color/colorAccentLight"/>
+                            android:textColor="@color/colorAccentLight"
+                            android:textSize="@dimen/text_size_info_description" />
 
                         <TextView
+                            android:id="@+id/genre"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/genre"
+                            android:gravity="top"
                             android:text="@string/no_info"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/text_size_info"
-                            android:gravity="top"/>
+                            android:textSize="@dimen/text_size_info" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-
-
             </LinearLayout>
 
         </ScrollView>
-
-
 
     </LinearLayout>
 

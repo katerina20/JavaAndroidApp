@@ -1,4 +1,4 @@
-package com.example.malut.javaandroidapp.Fragments;
+package com.example.malut.javaandroidapp.fragments;
 
 
 import android.os.Bundle;
@@ -11,10 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.malut.javaandroidapp.Model.Track;
+import com.example.malut.javaandroidapp.model.Track;
 import com.example.malut.javaandroidapp.R;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
