@@ -14,6 +14,9 @@ import com.example.malut.javaandroidapp.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdapter.ViewHolder> {
 
     private Activity context;
@@ -47,11 +50,11 @@ public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdap
 
         Track selectedTrack = tracks.get(i);
 
-        viewHolder.textViewName.setText(selectedTrack.getTrackName());
-        viewHolder.textViewSurname.setText(selectedTrack.getArtistName());
-        Glide.with(viewHolder.imageView)
+        viewHolder.trackName.setText(selectedTrack.getTrackName());
+        viewHolder.artistName.setText(selectedTrack.getArtistName());
+        Glide.with(viewHolder.trackImage)
                 .load(selectedTrack.getTrackImage())
-                .into(viewHolder.imageView);
+                .into(viewHolder.trackImage);
     }
 
     @Override
@@ -66,17 +69,18 @@ public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textViewName;
-        TextView textViewSurname;
-        ImageView imageView;
+        @BindView(R.id.track_name_list)
+        TextView trackName;
 
+        @BindView(R.id.artist_name_list)
+        TextView artistName;
+
+        @BindView(R.id.track_image_list)
+        ImageView trackImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
-            textViewName = itemView.findViewById(R.id.textName);
-            textViewSurname = itemView.findViewById(R.id.textSurname);
-            imageView = itemView.findViewById(R.id.imageUser);
+            ButterKnife.bind(this, itemView);
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.malut.javaandroidapp.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 public class InfoFragment extends Fragment {
 
     private Unbinder unbinder;
+//    private String noInfo;
 
     @BindView(R.id.info_track_name)
     TextView trackName;
@@ -65,19 +67,27 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_info, container, false);
+//        noInfo = "No information";
         unbinder = ButterKnife.bind(this, v);
 
         return v;
     }
 
     public void displayInfo(Track track) {
-        trackName.setText(track.getTrackName());
-        artistName.setText(track.getArtistName());
-        albumName.setText(track.getAlbumName());
-        duration.setText(track.getTrackTimeFormatted());
-        releaseDate.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(track.getReleaseDate()));
-        country.setText(track.getCountry());
-        genre.setText(track.getGenreName());
+        trackName.setText(track.getTrackName() != null ?
+                track.getTrackName() : noInfoTrack(trackName));
+        artistName.setText(track.getArtistName() != null ?
+                track.getArtistName() : noInfoTrack(artistName));
+        albumName.setText(track.getAlbumName() != null ?
+                track.getAlbumName() : noInfoTrack(albumName));
+        duration.setText(track.getTrackTimeFormatted() != null ?
+                track.getTrackTimeFormatted() : noInfoTrack(duration));
+        releaseDate.setText(track.getReleaseDate() != null ?
+                new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(track.getReleaseDate()) : noInfoTrack(releaseDate));
+        country.setText(track.getCountry() != null ?
+                track.getCountry() : noInfoTrack(country));
+        genre.setText(track.getGenreName() != null ?
+                track.getGenreName() : noInfoTrack(genre));
         Glide.with(this)
                 .load(track.getTrackImage())
                 .transform(new BlurTransformation(100))
@@ -92,6 +102,11 @@ public class InfoFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private String noInfoTrack (TextView textView){
+        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentLight));
+        return "No information";
     }
 
 }

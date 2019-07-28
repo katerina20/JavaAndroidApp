@@ -10,7 +10,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageUser"
+        android:id="@+id/track_image_list"
         android:layout_width="@dimen/image_in_list"
         android:layout_height="@dimen/image_in_list"
         android:src="@drawable/ic_person_black_24dp"
@@ -28,7 +28,7 @@
         tools:ignore="RtlSymmetry">
 
         <TextView
-            android:id="@+id/textName"
+            android:id="@+id/track_name_list"
             android:layout_width="wrap_content"
             android:gravity="bottom"
             android:textColor="@color/colorAccent"
@@ -39,7 +39,7 @@
 
 
         <TextView
-            android:id="@+id/textSurname"
+            android:id="@+id/artist_name_list"
             android:gravity="top"
             android:text="@string/preview"
             android:textColor="@color/colorAccent"
