@@ -49,6 +49,12 @@ public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdap
     @Override
     public void onBindViewHolder(TrackRecyclerAdapter.ViewHolder viewHolder, int i) {
 
+        if (i == tracks.size() - 1) {
+            viewHolder.divider.setVisibility(View.INVISIBLE);
+        } else {
+            viewHolder.divider.setVisibility(View.VISIBLE);
+        }
+
         Track selectedTrack = tracks.get(i);
 
         viewHolder.trackName.setText(selectedTrack.getTrackName());
@@ -78,6 +84,9 @@ public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdap
 
         @BindView(R.id.track_image_list)
         ImageView trackImage;
+
+        @BindView(R.id.divider)
+        View divider;
 
         public ViewHolder(View itemView) {
             super(itemView);
