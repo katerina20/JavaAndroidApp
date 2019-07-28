@@ -3,8 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/vertical_margin"-->
+        <!--android:layout_marginStart="@dimen/border_margin"-->
+        <!--android:layout_marginEnd="@dimen/border_margin"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--&lt;!&ndash;<EditText&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/search_edit"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_weight="7"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<Button&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/search_button"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="50dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@drawable/ic_search_black_24dp" />&ndash;&gt;-->
+
+
+        <!--<android.support.v7.widget.SearchView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:maxWidth="300dp"-->
+            <!--app:queryHint="Search...">-->
+
+
+        <!--</android.support.v7.widget.SearchView>-->
+
+    <!--</LinearLayout>-->
+
+
+
 
     <fragment
         android:id="@+id/fragment_list"

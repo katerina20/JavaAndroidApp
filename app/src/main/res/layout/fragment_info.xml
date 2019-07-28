@@ -15,116 +15,280 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/background_view"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:scaleType="centerCrop"
                 android:background="@drawable/grad">
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/close_button"
-                    android:layout_alignParentEnd="true"
-                    android:background="@color/transparent"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:text="@string/close"/>
-
-            </RelativeLayout>
+            </ImageView>
 
             <ImageView
-                android:id="@+id/image_profile"
+                android:id="@+id/track_image"
                 android:layout_marginTop="50dp"
+                android:layout_height="100dp"
                 android:layout_width="100dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_person_black_24dp"
-                android:background="@drawable/circle"
-                android:layout_height="100dp" />
+                 />
 
         </RelativeLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/info_layout"
             android:layout_marginTop="@dimen/vertical_margin"
-            android:paddingStart="@dimen/border_margin_info"
-            android:paddingEnd="@dimen/border_margin_info"
-            android:weightSum="4"
-            android:orientation="vertical">
+            android:id="@+id/info_track_name"
+            android:text="@string/no_info"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/track_name_info_text_size"
+            android:gravity="top"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/vertical_margin">
+                android:id="@+id/info_layout"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:paddingStart="@dimen/border_margin_info"
+                android:paddingEnd="@dimen/border_margin_info"
+                android:weightSum="4"
+                android:paddingBottom="@dimen/border_margin"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/name"
-                    android:layout_marginTop="@dimen/vertical_margin"
-                    android:textColor="@color/colorAccentLight"/>
+                    android:layout_marginTop="@dimen/vertical_margin_info"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_person_black_24dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/vertical_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/artist_name"
+                            android:textSize="@dimen/text_size_info_description"
+                            android:textColor="@color/colorAccentLight"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/artist_name"
+                            android:text="@string/no_info"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_size_info"
+                            android:gravity="top"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/vertical_margin"
-                    android:id="@+id/info_name"
-                    android:text="@string/no_info"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    android:gravity="top"/>
+                    android:layout_marginTop="@dimen/vertical_margin_info"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_album_black_24dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/vertical_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/album_name"
+                            android:textSize="@dimen/text_size_info_description"
+                            android:textColor="@color/colorAccentLight"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/album_name"
+                            android:text="@string/no_info"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_size_info"
+                            android:gravity="top"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vertical_margin_info"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_timer_black_24dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/vertical_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/duration"
+                            android:textSize="@dimen/text_size_info_description"
+                            android:textColor="@color/colorAccentLight"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/duration"
+                            android:text="@string/no_info"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_size_info"
+                            android:gravity="top"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vertical_margin_info"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_insert_invitation_black_24dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/vertical_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/release_date"
+                            android:textSize="@dimen/text_size_info_description"
+                            android:textColor="@color/colorAccentLight"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/release_date"
+                            android:text="@string/no_info"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_size_info"
+                            android:gravity="top"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vertical_margin_info"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_language_black_24dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/vertical_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/country"
+                            android:textSize="@dimen/text_size_info_description"
+                            android:textColor="@color/colorAccentLight"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/country"
+                            android:text="@string/no_info"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_size_info"
+                            android:gravity="top"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vertical_margin_info"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_queue_music_black_24dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/vertical_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/genre"
+                            android:textSize="@dimen/text_size_info_description"
+                            android:textColor="@color/colorAccentLight"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/genre"
+                            android:text="@string/no_info"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_size_info"
+                            android:gravity="top"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/vertical_margin">
+        </ScrollView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/surname"
-                    android:layout_marginTop="@dimen/vertical_margin"
-                    android:textColor="@color/colorAccentLight"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/vertical_margin"
-                    android:id="@+id/info_surname"
-                    android:text="@string/no_info"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    android:gravity="top"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/vertical_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/age"
-                    android:layout_marginTop="@dimen/vertical_margin"
-                    android:textColor="@color/colorAccentLight"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/vertical_margin"
-                    android:id="@+id/info_age"
-                    android:text="@string/no_info"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    android:gravity="top"/>
-            </LinearLayout>
-
-        </LinearLayout>
 
     </LinearLayout>
 

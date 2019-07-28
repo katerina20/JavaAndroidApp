@@ -7,25 +7,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.example.malut.javaandroidapp.Listeners.OnTrackClickListener;
 import com.example.malut.javaandroidapp.R;
-import com.example.malut.javaandroidapp.Services.OnPersonClickListener;
-import com.example.malut.javaandroidapp.Services.OnPersonInfoPass;
 
 import java.util.ArrayList;
 
-public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
+public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdapter.ViewHolder> {
 
     private Activity context;
-    private ArrayList<Person> people;
-    private OnPersonClickListener listener;
+    private ArrayList<Track> tracks;
+    private OnTrackClickListener listener;
 
-    public PersonAdapter(Activity context, ArrayList<Person> people) {
+    public TrackRecyclerAdapter(Activity context, ArrayList<Track> tracks) {
         this.context = context;
-        this.people = people;
+        this.tracks = tracks;
     }
 
     @Override
-    public PersonAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public TrackRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
         final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
@@ -42,13 +43,15 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(PersonAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(TrackRecyclerAdapter.ViewHolder viewHolder, int i) {
 
-        Person selectedPerson = people.get(i);
+        Track selectedTrack = tracks.get(i);
 
-        viewHolder.textViewName.setText(selectedPerson.getName());
-        viewHolder.textViewSurname.setText(selectedPerson.getSurname());
-        viewHolder.imageView.setImageResource(selectedPerson.getImage());
+        viewHolder.textViewName.setText(selectedTrack.getTrackName());
+        viewHolder.textViewSurname.setText(selectedTrack.getArtistName());
+        Glide.with(viewHolder.imageView)
+                .load(selectedTrack.getTrackImage())
+                .into(viewHolder.imageView);
     }
 
     @Override
@@ -58,7 +61,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return people.size();
+        return tracks.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -77,15 +80,15 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         }
     }
 
-    public ArrayList<Person> getPeople() {
-        return people;
+    public ArrayList<Track> getTracks() {
+        return tracks;
     }
 
-    public OnPersonClickListener getListener() {
+    public OnTrackClickListener getListener() {
         return listener;
     }
 
-    public void setListener(OnPersonClickListener listener) {
+    public void setListener(OnTrackClickListener listener) {
         this.listener = listener;
     }
 

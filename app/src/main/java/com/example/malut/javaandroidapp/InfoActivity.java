@@ -3,18 +3,15 @@ package com.example.malut.javaandroidapp;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.malut.javaandroidapp.Fragments.InfoFragment;
-import com.example.malut.javaandroidapp.Model.Person;
+import com.example.malut.javaandroidapp.Model.Track;
 
 import java.util.Objects;
 
 public class InfoActivity extends AppCompatActivity {
 
-    private Person person;
+    private Track track;
     private Fragment infoFragment;
     private boolean inLandscapeMode;
 
@@ -32,9 +29,9 @@ public class InfoActivity extends AppCompatActivity {
             infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_info);
         }
 
-        person = getIntent().getParcelableExtra("person_info");
+        track = getIntent().getParcelableExtra("track_info");
 
-        ((InfoFragment) infoFragment).displayInfo(person);
+        ((InfoFragment) infoFragment).displayInfo(track);
 
 
     }
