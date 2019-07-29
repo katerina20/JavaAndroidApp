@@ -14,6 +14,7 @@ public class Track implements Parcelable {
     private String artistName;
     private String country;
     private Date releaseDate;
+    private int trackId;
 
     @SerializedName("collectionName")
     private String albumName;
@@ -27,11 +28,12 @@ public class Track implements Parcelable {
     @SerializedName("artworkUrl100")
     private String trackImage;
 
-    public Track(String trackName, String artistName, String country, Date releaseDate, String albumName, long trackTime, String genreName, String trackImage) {
+    public Track(String trackName, String artistName, String country, Date releaseDate, int trackId, String albumName, long trackTime, String genreName, String trackImage) {
         this.trackName = trackName;
         this.artistName = artistName;
         this.country = country;
         this.releaseDate = releaseDate;
+        this.trackId = trackId;
         this.albumName = albumName;
         this.trackTime = trackTime;
         this.genreName = genreName;
@@ -47,6 +49,7 @@ public class Track implements Parcelable {
         genreName = in.readString();
         trackImage = in.readString();
         releaseDate = new Date(in.readLong());
+        trackId = in.readInt();
     }
 
     public static final Creator<Track> CREATOR = new Creator<Track>() {
@@ -85,6 +88,10 @@ public class Track implements Parcelable {
         return trackTime;
     }
 
+    public int getTrackId() {
+        return trackId;
+    }
+
     public String getTrackTimeFormatted() {
         long second = (trackTime / 1000) % 60;
         long minute = (trackTime / (1000 * 60)) % 60;
@@ -115,5 +122,6 @@ public class Track implements Parcelable {
         dest.writeString(genreName);
         dest.writeString(trackImage);
         dest.writeLong(releaseDate.getTime());
+        dest.writeInt(trackId);
     }
 }

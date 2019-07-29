@@ -11,5 +11,6 @@
     <string name="no_info">No information yet</string>
     <string name="preview">Testtesttest</string>
     <string name="hint_search">Search…</string>
+    <string name="nothing_to_show">Nothing to show</string>
 
 </resources>

@@ -9,19 +9,15 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/slide_tabs"
+        app:tabTextColor="@color/colorPrimaryDark"
+        app:tabIndicatorColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
-    <!--<fragment-->
-        <!--android:id="@+id/fragment_list_all"-->
-        <!--android:name="com.example.malut.javaandroidapp.fragments.ListAllFragmentent"-->
-        <!--tools:layout="@layout/fragment_list_all"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
 
 </LinearLayout>
