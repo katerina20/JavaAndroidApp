@@ -15,7 +15,7 @@ public abstract class ApiCallback<T> implements Callback<T> {
 
     public abstract void success(Response<T> response);
 
-    public abstract void failure(ErrorResponse gitRepoError);
+    public abstract void failure(ErrorResponse errorResponse);
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {

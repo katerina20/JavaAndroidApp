@@ -10,11 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.malut.javaandroidapp.adapters.ViewPagerAdapter;
 import com.example.malut.javaandroidapp.fragments.InfoFragment;
@@ -51,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
     private String queryText;
     private Database database;
     private Cursor cursor;
-    private Bundle bundle;
 
    private Toolbar toolbar;
    private ProgressBar progressBar;
@@ -62,22 +63,17 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Objects.requireNonNull(getSupportActionBar()).setTitle("Tracks list");
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Tracks list");
         setSupportActionBar(toolbar);
-//        progressBar = (ProgressBar) findViewById(R.id.progress_spinner);
         database = new Database(this);
         database.open();
+
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar_result);
 
         listAll = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_ALL_NAME));
         listByTrack = new ListAllFragment();
         listByArtist = new ListAllFragment();
-
-//        listAll = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_ALL_NAME));
-//        listByTrack = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_BY_TRACK_NAME));
-//        listByArtist = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_BY_ARTIST_NAME));
-
 
         viewPager = findViewById(R.id.view_pager);
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -104,18 +100,24 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
                 if (viewPager.getCurrentItem() == 1){
                     if(query == null){
                         listByTrack.fillListWithResult(getCashedData(database, Consts.DB_TABLE_BY_TRACK_NAME));
-                    } else
+                    } else {
+                        progressBar.setVisibility(View.VISIBLE);
                         loadRepos(query, KEY_BY_TRACK, listByTrack, Consts.DB_TABLE_BY_TRACK_NAME);
+                    }
                 } else if (viewPager.getCurrentItem() == 2){
                     if(query == null){
                         listByArtist.fillListWithResult(getCashedData(database, Consts.DB_TABLE_BY_ARTIST_NAME));
-                    } else
+                    } else {
+                        progressBar.setVisibility(View.VISIBLE);
                         loadRepos(query, KEY_BY_ARTIST, listByArtist, Consts.DB_TABLE_BY_ARTIST_NAME);
+                    }
                 } else {
                     if(query == null){
                         listAll.fillListWithResult(getCashedData(database, Consts.DB_TABLE_ALL_NAME));
-                    } else
+                    } else {
+                        progressBar.setVisibility(View.VISIBLE);
                         loadRepos(query, null, listAll, Consts.DB_TABLE_ALL_NAME);
+                    }
                 }
 
             }
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
     public boolean onQueryTextSubmit(String query) {
         setQueryText(query);
         searchView.clearFocus();
+        progressBar.setVisibility(View.VISIBLE);
         if (viewPager.getCurrentItem() == 1){
             loadRepos(query, KEY_BY_TRACK, listByTrack, Consts.DB_TABLE_BY_TRACK_NAME);
         } else if (viewPager.getCurrentItem() == 2){
@@ -165,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-//        progressBar = (ProgressBar) menu.findItem(R.id.progress).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
 
@@ -173,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
     }
 
     public void loadRepos(String name, String term, final ListAllFragment fragment, final String table) {
+
 
         RestClient.getsInstance()
                 .getService()
@@ -183,14 +186,17 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
                         if (response.body().getTracks()!= null){
                             database.clearData(table);
                             database.addApiData(response.body().getTracks(), table);
+                            progressBar.setVisibility(View.GONE);
                             fragment.fillListWithResult(response.body().getTracks());
                         } else
+                            progressBar.setVisibility(View.GONE);
                             fragment.fillListWithResult(getCashedData(database, table));
 
                     }
                     @Override
-                    public void failure(ErrorResponse gitRepoError) {
-//                        progressBar.setVisibility(View.GONE);
+                    public void failure(ErrorResponse errorResponse) {
+                        makeErrorToast(errorResponse.getErrorMessage());
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
 
@@ -233,27 +239,14 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
         super.onDestroy();
         database.close();
     }
+
     private ArrayList<Track> getCashedData(Database db, String table){
         cursor = db.getAllData(table);
         return fromCursorToList(cursor);
     }
 
-    public void showProgressBar(SearchView searchView, Context context)
-    {
-        int id = searchView.getContext().getResources().getIdentifier("android:id/search", null, null);
-        if (searchView.findViewById(id).findViewById(R.id.search_progress_bar) != null)
-            searchView.findViewById(id).findViewById(R.id.search_progress_bar).animate().setDuration(200).alpha(1).start();
+    private void makeErrorToast(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
 
-        else
-        {
-            View v = LayoutInflater.from(context).inflate(R.layout.loading_icon, null);
-            ((ViewGroup) searchView.findViewById(id)).addView(v, 1);
-        }
-    }
-    public void hideProgressBar(SearchView searchView)
-    {
-        int id = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-        if (searchView.findViewById(id).findViewById(R.id.search_progress_bar) != null)
-            searchView.findViewById(id).findViewById(R.id.search_progress_bar).animate().setDuration(200).alpha(0).start();
-    }
 }

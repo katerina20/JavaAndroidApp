@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.malut.javaandroidapp.model.Track;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class Database {
 
@@ -58,7 +60,7 @@ public class Database {
         cv.put(Consts.DB_COL_TRACK_TIME, track.getTrackTimeInMillis());
         cv.put(Consts.DB_COL_GENRE, track.getGenreName());
         cv.put(Consts.DB_COL_TRACK_IMAGE, track.getTrackImage());
-        cv.put(Consts.DB_COL_RELEASE_DATE, track.getReleaseDate().toString());
+        cv.put(Consts.DB_COL_RELEASE_DATE, new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).format(track.getReleaseDate()));
 
         sqLiteDatabase.insert(table, null, cv);
     }
