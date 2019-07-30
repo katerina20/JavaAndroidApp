@@ -41,7 +41,12 @@ public class ListAllFragment extends Fragment {
 
         recyclerView = v.findViewById(R.id.recycler_view);
 
-        tracks = new ArrayList<>();
+        if (getArguments() != null) {
+            tracks = getArguments().getParcelableArrayList("startList");
+        } else{
+            tracks = new ArrayList<>();
+        }
+
         trackRecyclerAdapter = new TrackRecyclerAdapter(getActivity(), tracks);
 
         trackRecyclerAdapter.setListener(new OnTrackClickListener() {
@@ -71,5 +76,15 @@ public class ListAllFragment extends Fragment {
         this.tracks.clear();
         this.tracks.addAll(tracks);
         trackRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    public static ListAllFragment newInstance(ArrayList<Track> arrayList) {
+        ListAllFragment myFragment = new ListAllFragment();
+
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("startList", arrayList);
+        myFragment.setArguments(args);
+
+        return myFragment;
     }
 }

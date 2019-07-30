@@ -36,10 +36,8 @@ public class Database {
         return sqLiteDatabase.query(table, null, null, null, null, null, Consts.DB_COL_ID_PRIMARY + " DESC");
     }
 
-    public void clearData() {
-        sqLiteDatabase.delete(Consts.DB_TABLE_ALL_NAME, null, null);
-        sqLiteDatabase.delete(Consts.DB_TABLE_BY_ARTIST_NAME, null, null);
-        sqLiteDatabase.delete(Consts.DB_TABLE_BY_TRACK_NAME, null, null);
+    public void clearData(String table) {
+        sqLiteDatabase.delete(table, null, null);
     }
 
     public void addApiData(List<Track> tracks, String table) {

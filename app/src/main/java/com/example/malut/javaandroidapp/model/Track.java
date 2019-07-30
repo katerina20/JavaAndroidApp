@@ -41,16 +41,18 @@ public class Track implements Parcelable {
     }
 
     protected Track(Parcel in) {
-        trackName = in.readString();
-        artistName = in.readString();
-        country = in.readString();
-        albumName = in.readString();
-        trackTime = in.readLong();
-        genreName = in.readString();
-        trackImage = in.readString();
-        releaseDate = new Date(in.readLong());
-        trackId = in.readInt();
+        trackName = (String) in.readSerializable();
+        artistName = (String) in.readSerializable();
+        country = (String) in.readSerializable();
+        albumName = (String) in.readSerializable();
+        trackTime = (long) in.readSerializable();
+        genreName = (String) in.readSerializable();
+        trackImage = (String) in.readSerializable();
+//        releaseDate = in.readSerializable() != null ? new Date((String) in.readSerializable()) : null;
+        releaseDate = (java.util.Date) in.readSerializable();
+        trackId = (int) in.readSerializable();
     }
+
 
     public static final Creator<Track> CREATOR = new Creator<Track>() {
         @Override
@@ -114,14 +116,15 @@ public class Track implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(trackName);
-        dest.writeString(artistName);
-        dest.writeString(country);
-        dest.writeString(albumName);
-        dest.writeLong(trackTime);
-        dest.writeString(genreName);
-        dest.writeString(trackImage);
-        dest.writeLong(releaseDate.getTime());
-        dest.writeInt(trackId);
+        dest.writeSerializable(trackName);
+        dest.writeSerializable(artistName);
+        dest.writeSerializable(country);
+        dest.writeSerializable(albumName);
+        dest.writeSerializable(trackTime);
+        dest.writeSerializable(genreName);
+        dest.writeSerializable(trackImage);
+//        dest.writeSerializable(releaseDate != null ? String.valueOf(releaseDate.getTime()) : releaseDate);
+        dest.writeSerializable(releaseDate);
+        dest.writeSerializable(trackId);
     }
 }

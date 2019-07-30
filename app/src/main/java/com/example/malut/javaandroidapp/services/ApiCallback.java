@@ -29,6 +29,8 @@ public abstract class ApiCallback<T> implements Callback<T> {
                 failure(errorResponse);
             } catch (Exception e) {
                 failure(new ErrorResponse("Unhandled error! Code: " + response.code()));
+            } finally {
+//                response.body().close();
             }
         } else {
             success(response);

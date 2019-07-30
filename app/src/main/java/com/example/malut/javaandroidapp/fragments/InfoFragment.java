@@ -79,7 +79,7 @@ public class InfoFragment extends Fragment {
                 track.getArtistName() : noInfoTrack(artistName));
         albumName.setText(track.getAlbumName() != null ?
                 track.getAlbumName() : noInfoTrack(albumName));
-        duration.setText(track.getTrackTimeFormatted() != null ?
+        duration.setText(track.getTrackTimeInMillis() != 0 ?
                 track.getTrackTimeFormatted() : noInfoTrack(duration));
         releaseDate.setText(track.getReleaseDate() != null ?
                 new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(track.getReleaseDate()) : noInfoTrack(releaseDate));
@@ -107,5 +107,7 @@ public class InfoFragment extends Fragment {
         textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentLight));
         return "No information";
     }
+
+
 
 }

@@ -3,9 +3,9 @@ package com.example.malut.javaandroidapp.utils;
 public class Consts {
 
     public final static String DB_NAME = "search_results_db";
-    public final static String DB_TABLE_ALL_NAME = "search_results_db";
-    public final static String DB_TABLE_BY_TRACK_NAME = "search_results_db";
-    public final static String DB_TABLE_BY_ARTIST_NAME = "search_results_db";
+    public final static String DB_TABLE_ALL_NAME = "search_results_all_db";
+    public final static String DB_TABLE_BY_TRACK_NAME = "search_results_by_track_db";
+    public final static String DB_TABLE_BY_ARTIST_NAME = "search_results_by_artist_db";
     public final static String DB_COL_ID_PRIMARY = "_id";
     public final static String DB_COL_ID = "track_id";
     public final static String DB_COL_TRACK_NAME = "track_name";
