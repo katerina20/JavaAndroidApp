@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.malut.javaandroidapp.listeners.OnTrackClickListener;
 import com.example.malut.javaandroidapp.R;
+import com.example.malut.javaandroidapp.listeners.OnTrackClickListener;
 import com.example.malut.javaandroidapp.model.Track;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdap
         return tracks.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.track_name_list)
         TextView trackName;

@@ -3,17 +3,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:weightSum="1"
     tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/fragment_list"
-        android:name="com.example.malut.javaandroidapp.fragments.ListAllFragment"
+    <!--<fragment-->
+        <!--android:id="@+id/fragment_list"-->
+        <!--android:name="com.example.malut.javaandroidapp.fragments.ListAllFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--tools:layout="@layout/fragment_list_all"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="0.6"/>-->
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        tools:layout="@layout/fragment_list_all"
         android:layout_height="match_parent"
-        android:layout_weight="0.6"/>
+        android:orientation="vertical"
+        android:layout_weight="0.5">
+
+        <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                app:titleTextColor="@color/colorLignt"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/slide_tabs"
+            app:tabTextColor="@color/colorPrimaryDark"
+            app:tabIndicatorColor="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar_result"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:visibility="gone"
+            android:indeterminate="true" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccentLight"/>
 
     <fragment
         android:id="@+id/fragment_info"
@@ -21,6 +76,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_info"
-        android:layout_weight="0.4"/>
+        android:layout_weight="0.5"/>
 
 </LinearLayout>

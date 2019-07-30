@@ -3,18 +3,17 @@ package com.example.malut.javaandroidapp;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -35,9 +34,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, SearchView.OnQueryTextListener {
@@ -48,45 +47,58 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
     private InfoFragment infoFragment;
     private SearchView searchView;
     private ViewPagerAdapter adapter;
-    private TabLayout tabLayout;
-    private ListAllFragment listAll, listByTrack, listByArtist;
+
+    //    private ListAllFragment listAll, listByTrack, listByArtist;
     private String queryText;
     private Database database;
     private Cursor cursor;
 
-   private Toolbar toolbar;
-   private ProgressBar progressBar;
 
-    private ViewPager viewPager;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.progress_bar_result)
+    ProgressBar progressBar;
+
+    @BindView(R.id.slide_tabs)
+    TabLayout tabLayout;
+
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.toolbar);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        ButterKnife.bind(this);
         toolbar.setTitle("Tracks list");
         setSupportActionBar(toolbar);
         database = new Database(this);
         database.open();
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar_result);
+//        listAll = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_ALL_NAME));
+//        listByTrack = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_BY_TRACK_NAME));
+//        listByArtist = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_BY_ARTIST_NAME));
 
-        listAll = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_ALL_NAME));
-        listByTrack = new ListAllFragment();
-        listByArtist = new ListAllFragment();
+//        listAll = new ListAllFragment();
+//        listByTrack = new ListAllFragment();
+//        listByArtist = new ListAllFragment();
 
-        viewPager = findViewById(R.id.view_pager);
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(listAll, "All");
-        adapter.addFragment(listByTrack, "By track");
-        adapter.addFragment(listByArtist, "By artist");
 
-//        inLandscapeMode = findViewById(R.id.fragment_info) != null;
-//        listAllFragment = (ListAllFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_list_all);
+        adapter.addFragment(ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_ALL_NAME)), "All");
+        adapter.addFragment(new ListAllFragment(), "By track");
+        adapter.addFragment(new ListAllFragment(), "By artist");
+
+        inLandscapeMode = findViewById(R.id.fragment_info) != null;
+
+//        if (inLandscapeMode) {
+//            infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_info);
+//        }
 
         viewPager.setAdapter(adapter);
 
-        tabLayout = findViewById(R.id.slide_tabs);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -97,26 +109,26 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
             @Override
             public void onPageSelected(int i) {
                 String query = getQueryText();
-                if (viewPager.getCurrentItem() == 1){
-                    if(query == null){
-                        listByTrack.fillListWithResult(getCashedData(database, Consts.DB_TABLE_BY_TRACK_NAME));
+                if (viewPager.getCurrentItem() == 1) {
+                    if (query == null) {
+                        new loadDataFromDatabase((ListAllFragment) adapter.getItem(i)).execute(Consts.DB_TABLE_BY_TRACK_NAME);
                     } else {
                         progressBar.setVisibility(View.VISIBLE);
-                        loadRepos(query, KEY_BY_TRACK, listByTrack, Consts.DB_TABLE_BY_TRACK_NAME);
+                        loadRepos(query, KEY_BY_TRACK, (ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_BY_TRACK_NAME);
                     }
-                } else if (viewPager.getCurrentItem() == 2){
-                    if(query == null){
-                        listByArtist.fillListWithResult(getCashedData(database, Consts.DB_TABLE_BY_ARTIST_NAME));
+                } else if (viewPager.getCurrentItem() == 2) {
+                    if (query == null) {
+                        new loadDataFromDatabase((ListAllFragment) adapter.getItem(i)).execute(Consts.DB_TABLE_BY_ARTIST_NAME);
                     } else {
                         progressBar.setVisibility(View.VISIBLE);
-                        loadRepos(query, KEY_BY_ARTIST, listByArtist, Consts.DB_TABLE_BY_ARTIST_NAME);
+                        loadRepos(query, KEY_BY_ARTIST, (ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_BY_ARTIST_NAME);
                     }
                 } else {
-                    if(query == null){
-                        listAll.fillListWithResult(getCashedData(database, Consts.DB_TABLE_ALL_NAME));
+                    if (query == null) {
+                        new loadDataFromDatabase((ListAllFragment) adapter.getItem(i)).execute(Consts.DB_TABLE_ALL_NAME);
                     } else {
                         progressBar.setVisibility(View.VISIBLE);
-                        loadRepos(query, null, listAll, Consts.DB_TABLE_ALL_NAME);
+                        loadRepos(query, null, (ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_ALL_NAME);
                     }
                 }
 
@@ -147,12 +159,12 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
         setQueryText(query);
         searchView.clearFocus();
         progressBar.setVisibility(View.VISIBLE);
-        if (viewPager.getCurrentItem() == 1){
-            loadRepos(query, KEY_BY_TRACK, listByTrack, Consts.DB_TABLE_BY_TRACK_NAME);
-        } else if (viewPager.getCurrentItem() == 2){
-            loadRepos(query, KEY_BY_ARTIST, listByArtist, Consts.DB_TABLE_BY_ARTIST_NAME);
+        if (viewPager.getCurrentItem() == 1) {
+            loadRepos(query, KEY_BY_TRACK, (ListAllFragment) adapter.getItem(viewPager.getCurrentItem()), Consts.DB_TABLE_BY_TRACK_NAME);
+        } else if (viewPager.getCurrentItem() == 2) {
+            loadRepos(query, KEY_BY_ARTIST, (ListAllFragment) adapter.getItem(viewPager.getCurrentItem()), Consts.DB_TABLE_BY_ARTIST_NAME);
         } else
-            loadRepos(query, null, listAll, Consts.DB_TABLE_ALL_NAME);
+            loadRepos(query, null, (ListAllFragment) adapter.getItem(viewPager.getCurrentItem()), Consts.DB_TABLE_ALL_NAME);
         return true;
     }
 
@@ -183,16 +195,17 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
                 .enqueue(new ApiCallback<ITunesResponse>() {
                     @Override
                     public void success(Response<ITunesResponse> response) {
-                        if (response.body().getTracks()!= null){
+                        if (response.body().getTracks() != null) {
                             database.clearData(table);
                             database.addApiData(response.body().getTracks(), table);
                             progressBar.setVisibility(View.GONE);
                             fragment.fillListWithResult(response.body().getTracks());
                         } else
                             progressBar.setVisibility(View.GONE);
-                            fragment.fillListWithResult(getCashedData(database, table));
+                        new loadDataFromDatabase(fragment).execute(table);
 
                     }
+
                     @Override
                     public void failure(ErrorResponse errorResponse) {
                         makeErrorToast(errorResponse.getErrorMessage());
@@ -210,9 +223,9 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
         this.queryText = queryText;
     }
 
-    private ArrayList<Track> fromCursorToList (Cursor cursor){
+    private ArrayList<Track> fromCursorToList(Cursor cursor) {
         ArrayList<Track> tr = new ArrayList<>();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
 
             String trackName = cursor.getString(cursor.getColumnIndex(Consts.DB_COL_TRACK_NAME));
             String artistName = cursor.getString(cursor.getColumnIndex(Consts.DB_COL_ARTIST_NAME));
@@ -240,13 +253,34 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
         database.close();
     }
 
-    private ArrayList<Track> getCashedData(Database db, String table){
+    private ArrayList<Track> getCashedData(Database db, String table) {
         cursor = db.getAllData(table);
         return fromCursorToList(cursor);
     }
 
     private void makeErrorToast(String errorMessage) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    public class loadDataFromDatabase extends AsyncTask<String, Integer, ArrayList<Track>> {
+
+        ListAllFragment fragment;
+
+        public loadDataFromDatabase(ListAllFragment fragment) {
+            this.fragment = fragment;
+        }
+
+        @Override
+        protected ArrayList<Track> doInBackground(String... strings) {
+            cursor = database.getAllData(strings[0]);
+            return fromCursorToList(cursor);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Track> arrayList) {
+            super.onPostExecute(arrayList);
+            fragment.fillListWithResult(arrayList);
+        }
     }
 
 }

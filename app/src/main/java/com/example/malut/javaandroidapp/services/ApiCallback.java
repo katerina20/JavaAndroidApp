@@ -2,7 +2,6 @@ package com.example.malut.javaandroidapp.services;
 
 import com.example.malut.javaandroidapp.model.ErrorResponse;
 
-
 import java.lang.annotation.Annotation;
 
 import okhttp3.ResponseBody;
@@ -19,7 +18,7 @@ public abstract class ApiCallback<T> implements Callback<T> {
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-        if (!response.isSuccessful()){
+        if (!response.isSuccessful()) {
             Converter<ResponseBody, ErrorResponse> converter = RestClient
                     .getsInstance()
                     .getRetrofit()

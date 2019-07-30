@@ -48,7 +48,6 @@ public class Track implements Parcelable {
         trackTime = (long) in.readSerializable();
         genreName = (String) in.readSerializable();
         trackImage = (String) in.readSerializable();
-//        releaseDate = in.readSerializable() != null ? new Date((String) in.readSerializable()) : null;
         releaseDate = (java.util.Date) in.readSerializable();
         trackId = (int) in.readSerializable();
     }
@@ -123,7 +122,6 @@ public class Track implements Parcelable {
         dest.writeSerializable(trackTime);
         dest.writeSerializable(genreName);
         dest.writeSerializable(trackImage);
-//        dest.writeSerializable(releaseDate != null ? String.valueOf(releaseDate.getTime()) : releaseDate);
         dest.writeSerializable(releaseDate);
         dest.writeSerializable(trackId);
     }

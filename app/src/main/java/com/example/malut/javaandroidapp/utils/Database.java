@@ -15,7 +15,7 @@ import java.util.Locale;
 public class Database {
 
     private final Context context;
-    private  DBHelper dbHelper;
+    private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
 

@@ -2,6 +2,7 @@ package com.example.malut.javaandroidapp.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -11,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.malut.javaandroidapp.model.Track;
 import com.example.malut.javaandroidapp.R;
+import com.example.malut.javaandroidapp.model.Track;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -30,29 +31,38 @@ public class InfoFragment extends Fragment {
     private Unbinder unbinder;
 //    private String noInfo;
 
+    @Nullable
     @BindView(R.id.info_track_name)
     TextView trackName;
 
+    @Nullable
     @BindView(R.id.artist_name)
     TextView artistName;
 
+    @Nullable
     @BindView(R.id.album_name)
     TextView albumName;
 
+    @Nullable
     @BindView(R.id.duration)
     TextView duration;
 
+    @Nullable
     @BindView(R.id.release_date)
     TextView releaseDate;
 
+    @Nullable
     @BindView(R.id.country)
     TextView country;
 
+    @Nullable
     @BindView(R.id.genre)
     TextView genre;
 
+    @Nullable
     @BindView(R.id.background_view)
     ImageView backView;
+    @Nullable
     @BindView(R.id.track_image)
     ImageView trackImage;
 
@@ -66,7 +76,6 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_info, container, false);
-//        noInfo = "No information";
         unbinder = ButterKnife.bind(this, v);
 
         return v;
@@ -103,11 +112,10 @@ public class InfoFragment extends Fragment {
         unbinder.unbind();
     }
 
-    private String noInfoTrack (TextView textView){
+    private String noInfoTrack(TextView textView) {
         textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentLight));
         return "No information";
     }
-
 
 
 }

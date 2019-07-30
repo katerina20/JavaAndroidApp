@@ -43,7 +43,7 @@ public class ListAllFragment extends Fragment {
 
         if (getArguments() != null) {
             tracks = getArguments().getParcelableArrayList("startList");
-        } else{
+        } else {
             tracks = new ArrayList<>();
         }
 
@@ -74,6 +74,7 @@ public class ListAllFragment extends Fragment {
 
     public void fillListWithResult(List<Track> tracks) {
         this.tracks.clear();
+
         this.tracks.addAll(tracks);
         trackRecyclerAdapter.notifyDataSetChanged();
     }

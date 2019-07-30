@@ -18,8 +18,8 @@ public class Consts {
     public final static String DB_COL_RELEASE_DATE = "release_date";
     public final static int DB_VERSION = 1;
 
-    public static String createDB (String table) {
-        return  "create table " + table + "(" +
+    public static String createDB(String table) {
+        return "create table " + table + "(" +
                 DB_COL_ID_PRIMARY + " integer primary key autoincrement, " +
                 DB_COL_ID + " integer, " +
                 DB_COL_TRACK_NAME + " text, " +
@@ -35,12 +35,9 @@ public class Consts {
 
     }
 
-    public static String deleteEntriesDB (String table){
+    public static String deleteEntriesDB(String table) {
         return "DROP TABLE IF EXISTS " + table;
     }
-
-
-
 
 
 }

@@ -1,9 +1,9 @@
 package com.example.malut.javaandroidapp.services;
 
-import java.util.Date;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.Date;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
