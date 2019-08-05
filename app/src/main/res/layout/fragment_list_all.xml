@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ListAllFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nothing_to_show"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:visibility="gone"
+        android:id="@+id/empty_list"/>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

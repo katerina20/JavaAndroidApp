@@ -29,7 +29,7 @@ public abstract class ApiCallback<T> implements Callback<T> {
             } catch (Exception e) {
                 failure(new ErrorResponse("Unhandled error! Code: " + response.code()));
             } finally {
-//                response.body().czlose();
+//                response.body().close();
             }
         } else {
             success(response);

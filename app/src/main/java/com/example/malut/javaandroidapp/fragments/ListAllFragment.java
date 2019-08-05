@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.malut.javaandroidapp.R;
 import com.example.malut.javaandroidapp.adapters.TrackRecyclerAdapter;
@@ -26,6 +27,7 @@ import java.util.List;
 public class ListAllFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private TextView emptyList;
     private TrackRecyclerAdapter trackRecyclerAdapter;
     private OnTrackInfoPass infoPass;
 
@@ -40,6 +42,7 @@ public class ListAllFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_list_all, container, false);
 
         recyclerView = v.findViewById(R.id.recycler_view);
+        emptyList = v.findViewById(R.id.empty_list);
 
         if (getArguments() != null) {
             tracks = getArguments().getParcelableArrayList("startList");
@@ -73,8 +76,12 @@ public class ListAllFragment extends Fragment {
     }
 
     public void fillListWithResult(List<Track> tracks) {
+        if (tracks.size() == 0){
+            emptyList.setVisibility(View.VISIBLE);
+        } else {
+            emptyList.setVisibility(View.GONE);
+        }
         this.tracks.clear();
-
         this.tracks.addAll(tracks);
         trackRecyclerAdapter.notifyDataSetChanged();
     }
