@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -25,6 +26,7 @@ import com.example.malut.javaandroidapp.model.ITunesResponse;
 import com.example.malut.javaandroidapp.model.OnTrackInfoPass;
 import com.example.malut.javaandroidapp.model.Track;
 import com.example.malut.javaandroidapp.services.ApiCallback;
+import com.example.malut.javaandroidapp.services.ApiService;
 import com.example.malut.javaandroidapp.services.RestClient;
 import com.example.malut.javaandroidapp.utils.Consts;
 import com.example.malut.javaandroidapp.utils.Database;
@@ -37,6 +39,9 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, SearchView.OnQueryTextListener {
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
     private String queryText;
     private Database database;
     private Cursor cursor;
+    private ApiService service;
 
 
     @BindView(R.id.toolbar)
@@ -75,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
         setSupportActionBar(toolbar);
         database = new Database(this);
         database.open();
+        service = RestClient.getsInstance().getService();
 
         if (savedInstanceState == null) {
 
@@ -196,25 +203,20 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
         RestClient.getsInstance()
                 .getService()
                 .getSongsRepos(name, term)
-                .enqueue(new ApiCallback<ITunesResponse>() {
-                    @Override
-                    public void success(Response<ITunesResponse> response) {
-                        if (response.body().getTracks() != null) {
-                            database.clearData(table);
-                            database.addApiData(response.body().getTracks(), table);
-                            progressBar.setVisibility(View.GONE);
-                            fragment.fillListWithResult(response.body().getTracks());
-                        } else
-                            progressBar.setVisibility(View.GONE);
-                        new loadDataFromDatabase(fragment).execute(table);
-
-                    }
-
-                    @Override
-                    public void failure(ErrorResponse errorResponse) {
-                        makeErrorToast(errorResponse.getErrorMessage());
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( response -> {
+                    if (response.getTracks() != null) {
+                        database.clearData(table);
+                        database.addApiData(response.getTracks(), table);
                         progressBar.setVisibility(View.GONE);
-                    }
+                        fragment.fillListWithResult(response.getTracks());
+                    } else
+                        progressBar.setVisibility(View.GONE);
+                    new loadDataFromDatabase(fragment).execute(table);
+                }, error -> {
+                    Log.e("RestApiClient", error.getMessage());
+                    makeErrorToast("Result error");
+                    progressBar.setVisibility(View.GONE);
                 });
 
     }

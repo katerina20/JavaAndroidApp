@@ -8,16 +8,6 @@
     android:weightSum="1"
     tools:context=".MainActivity">
 
-    <!--<fragment-->
-        <!--android:id="@+id/fragment_list"-->
-        <!--android:name="com.example.malut.javaandroidapp.fragments.ListAllFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--tools:layout="@layout/fragment_list_all"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="0.6"/>-->
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,20 +32,27 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/slide_tabs"
-            app:tabTextColor="@color/colorPrimaryDark"
-            app:tabIndicatorColor="@color/colorPrimary"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
 
-        <ProgressBar
-            android:id="@+id/progress_bar_result"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:visibility="gone"
-            android:indeterminate="true" />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/slide_tabs"
+                app:tabTextColor="@color/colorPrimaryDark"
+                app:tabIndicatorColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar_result"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_alignBottom="@+id/slide_tabs"
+                android:visibility="gone"
+                android:indeterminate="true" />
+
+        </RelativeLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
