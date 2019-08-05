@@ -3,11 +3,11 @@ package com.example.malut.javaandroidapp;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
     private SearchView searchView;
     private ViewPagerAdapter adapter;
 
-    //    private ListAllFragment listAll, listByTrack, listByArtist;
+    private ListAllFragment listAll, listByTrack, listByArtist;
     private String queryText;
     private Database database;
     private Cursor cursor;
@@ -70,36 +70,40 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
         toolbar.setTitle("Tracks list");
         setSupportActionBar(toolbar);
         database = new Database(this);
         database.open();
 
-//        listAll = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_ALL_NAME));
-//        listByTrack = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_BY_TRACK_NAME));
-//        listByArtist = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_BY_ARTIST_NAME));
+        if (savedInstanceState == null) {
 
-//        listAll = new ListAllFragment();
-//        listByTrack = new ListAllFragment();
-//        listByArtist = new ListAllFragment();
+            listAll = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_ALL_NAME));
+            listByTrack = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_BY_TRACK_NAME));
+            listByArtist = ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_BY_ARTIST_NAME));
+
+        } else {
+            listAll = (ListAllFragment) getSupportFragmentManager().getFragment(savedInstanceState, "list_all");
+            listByTrack = (ListAllFragment) getSupportFragmentManager().getFragment(savedInstanceState, "list_by_track");
+            listByArtist = (ListAllFragment) getSupportFragmentManager().getFragment(savedInstanceState, "list_by_artist");
+        }
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(ListAllFragment.newInstance(getCashedData(database, Consts.DB_TABLE_ALL_NAME)), "All");
-        adapter.addFragment(new ListAllFragment(), "By track");
-        adapter.addFragment(new ListAllFragment(), "By artist");
+        adapter.addFragment(listAll, "All");
+        adapter.addFragment(listByTrack, "By track");
+        adapter.addFragment(listByArtist, "By artist");
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
+
+        tabLayout.setupWithViewPager(viewPager);
 
         inLandscapeMode = findViewById(R.id.fragment_info) != null;
 
-//        if (inLandscapeMode) {
-//            infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_info);
-//        }
+        if (inLandscapeMode) {
+            infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_info);
+        }
 
-        viewPager.setAdapter(adapter);
-
-        tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -283,4 +287,15 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (listAll.isAdded() && listByArtist.isAdded() && listByArtist.isAdded()) {
+            fragmentManager.putFragment(outState, "list_all", listAll);
+            fragmentManager.putFragment(outState, "list_by_track", listByTrack);
+            fragmentManager.putFragment(outState, "list_by_artist", listByArtist);
+        }
+
+    }
 }
