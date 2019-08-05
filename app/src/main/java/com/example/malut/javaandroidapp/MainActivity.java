@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -21,11 +20,8 @@ import android.widget.Toast;
 import com.example.malut.javaandroidapp.adapters.ViewPagerAdapter;
 import com.example.malut.javaandroidapp.fragments.InfoFragment;
 import com.example.malut.javaandroidapp.fragments.ListAllFragment;
-import com.example.malut.javaandroidapp.model.ErrorResponse;
-import com.example.malut.javaandroidapp.model.ITunesResponse;
 import com.example.malut.javaandroidapp.model.OnTrackInfoPass;
 import com.example.malut.javaandroidapp.model.Track;
-import com.example.malut.javaandroidapp.services.ApiCallback;
 import com.example.malut.javaandroidapp.services.ApiService;
 import com.example.malut.javaandroidapp.services.RestClient;
 import com.example.malut.javaandroidapp.utils.Consts;
@@ -41,8 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import retrofit2.HttpException;
-import retrofit2.Response;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, SearchView.OnQueryTextListener {
 
@@ -120,29 +115,17 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
             @Override
             public void onPageSelected(int i) {
                 String query = getQueryText();
-                if (viewPager.getCurrentItem() == 1) {
-                    if (query == null) {
-                        new loadDataFromDatabase((ListAllFragment) adapter.getItem(i)).execute(Consts.DB_TABLE_BY_TRACK_NAME);
-                    } else {
-                        progressBar.setVisibility(View.VISIBLE);
-                        loadRepos(query, KEY_BY_TRACK, (ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_BY_TRACK_NAME);
-                    }
-                } else if (viewPager.getCurrentItem() == 2) {
-                    if (query == null) {
-                        new loadDataFromDatabase((ListAllFragment) adapter.getItem(i)).execute(Consts.DB_TABLE_BY_ARTIST_NAME);
-                    } else {
-                        progressBar.setVisibility(View.VISIBLE);
-                        loadRepos(query, KEY_BY_ARTIST, (ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_BY_ARTIST_NAME);
-                    }
-                } else {
-                    if (query == null) {
-                        new loadDataFromDatabase((ListAllFragment) adapter.getItem(i)).execute(Consts.DB_TABLE_ALL_NAME);
-                    } else {
-                        progressBar.setVisibility(View.VISIBLE);
-                        loadRepos(query, null, (ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_ALL_NAME);
-                    }
+                switch (i) {
+                    case 0:
+                        changeListFragment((ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_ALL_NAME, query, null);
+                        break;
+                    case 1:
+                        changeListFragment((ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_BY_TRACK_NAME, query, KEY_BY_TRACK);
+                        break;
+                    case 2:
+                        changeListFragment((ListAllFragment) adapter.getItem(i), Consts.DB_TABLE_BY_ARTIST_NAME, query, KEY_BY_ARTIST);
+                        break;
                 }
-
             }
 
             @Override
@@ -151,6 +134,15 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
             }
         });
 
+    }
+
+    private void changeListFragment(ListAllFragment fragment, String table, String query, String key) {
+        if (query == null) {
+            loadDataFromDb(fragment, table);
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
+            loadRepos(query, key, fragment, table);
+        }
     }
 
     @Override
@@ -204,15 +196,17 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
                 .getService()
                 .getSongsRepos(name, term)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( response -> {
+                .subscribe(response -> {
                     if (response.getTracks() != null) {
                         database.clearData(table);
                         database.addApiData(response.getTracks(), table);
                         progressBar.setVisibility(View.GONE);
                         fragment.fillListWithResult(response.getTracks());
-                    } else
+                    } else {
                         progressBar.setVisibility(View.GONE);
-                    new loadDataFromDatabase(fragment).execute(table);
+                        loadDataFromDb(fragment, table);
+//                        new loadDataFromDatabase(fragment).execute(table);
+                    }
                 }, error -> {
                     Log.e("RestApiClient", error.getMessage());
                     makeErrorToast("Result error");
@@ -268,27 +262,6 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 
-    public class loadDataFromDatabase extends AsyncTask<String, Integer, ArrayList<Track>> {
-
-        ListAllFragment fragment;
-
-        public loadDataFromDatabase(ListAllFragment fragment) {
-            this.fragment = fragment;
-        }
-
-        @Override
-        protected ArrayList<Track> doInBackground(String... strings) {
-            cursor = database.getAllData(strings[0]);
-            return fromCursorToList(cursor);
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Track> arrayList) {
-            super.onPostExecute(arrayList);
-            fragment.fillListWithResult(arrayList);
-        }
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -299,5 +272,13 @@ public class MainActivity extends AppCompatActivity implements OnTrackInfoPass, 
             fragmentManager.putFragment(outState, "list_by_artist", listByArtist);
         }
 
+    }
+
+    private void loadDataFromDb(ListAllFragment fragment, String table) {
+        Observable.just(table)
+                .map(s -> fromCursorToList(database.getAllData(s)))
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(fragment::fillListWithResult);
     }
 }
